@@ -8,28 +8,30 @@ const debug = process.env.NODE_ENV !== 'production'
 
 // initial state
 const state = {
-  added: [],
-  all: [
-    {
-      id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
-      name: 'COBOL 101 vintage',
-      description: 'Learn COBOL with this vintage programming book',
-      price: 399
-    },
-    {
-      id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
-      name: 'Sharp C2719 curved TV',
-      description: 'Watch TV like never before with the brand new curved screen technology',
-      price: 1995
-    },
-    {
-      id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
-      name: 'Remmington X mechanical keyboard',
-      description: 'Excellent for gaming and typing, this Remmington X keyboard ' +
-        'features tactile, clicky switches for speed and accuracy',
-      price: 595
-    }
-  ]
+	added: [],
+	all: [
+		{
+			id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
+			name: 'React.js',
+			description: 'React is a JavaScript library for building user interfaces.',
+			price: 399,
+			itemQuantity: 0
+		},
+		{
+			id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
+			name: 'Vue.js',
+			description: 'Vue is a progressive framework for building user interfaces.',
+			price: 1995,
+			itemQuantity: 0
+		},
+		{
+			id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
+			name: 'Angular.js',
+			description: 'Angular is a JavaScript framework for building single-page applications.',
+			price: 595,
+			itemQuantity: 0
+		}
+	]
 }
 
 // getters
@@ -37,13 +39,14 @@ const getters = {
 	allProducts: state => state.all, // would need action/mutation if data fetched async
 	getNumberOfProducts: state => (state.all) ? state.all.length : 0,
 	cartProducts: state => {
-		return state.added.map(({ id, quantity }) => {
+		return state.added.map(({ id, totalQuantity }) => {
 			const product = state.all.find(p => p.id === id)
 
 			return {
 				name: product.name,
 				price: product.price,
-				quantity
+				itemQuantity: product.itemQuantity,
+				totalQuantity
 			}
 		})
 	}
@@ -51,8 +54,13 @@ const getters = {
 
 // actions
 const actions = {
-	addToCart({ commit }, product){
+	addToCart({ commit }, product) {
 		commit(types.ADD_TO_CART, {
+			id: product.id
+		})
+	},
+	removeFromCart({ commit }, product) {
+		commit(types.REMOVE_FROM_CART, {
 			id: product.id
 		})
 	}
@@ -61,18 +69,43 @@ const actions = {
 // mutations
 const mutations = {
 
-	[types.ADD_TO_CART] (state, { id }) {
-	    const record = state.added.find(p => p.id === id)
+	[types.ADD_TO_CART](state, { id }) {
+		const record = state.added.find(p => p.id === id)
+		const itemSelected = state.all.find(p => p.id === id)
 
-	    if (!record) {
-	      state.added.push({
-	        id,
-	        quantity: 1
-	      })
-	    } else {
-	      record.quantity++
-	    }
-	  }
+		if (!record) {
+			state.added.push({
+				id,
+				totalQuantity: 1
+			}),
+				itemSelected.itemQuantity++
+		} else {
+			record.totalQuantity++
+			itemSelected.itemQuantity++
+		}
+	},
+
+	[types.REMOVE_FROM_CART](state, { id }) {
+		const recordRemove = state.added.find(p => p.id === id)
+		const itemSelectedRemove = state.all.find(p => p.id === id)
+
+		//remove from array if quantity is 0
+		if (recordRemove.totalQuantity == 0) {
+			state.added = state.added.filter(p => p.id !== id)
+		} else {
+			recordRemove.totalQuantity--
+			itemSelectedRemove.itemQuantity--
+		}
+
+		if (recordRemove.totalQuantity < 0) {
+			recordRemove.totalQuantity = 0
+		}
+
+		if (itemSelectedRemove.itemQuantity < 0) {
+			itemSelectedRemove.itemQuantity = 0
+			alert('Não é possivel remover mais produtos')
+		}
+	}
 }
 
 // one store for entire application

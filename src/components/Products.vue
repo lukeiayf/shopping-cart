@@ -1,26 +1,43 @@
 <template>
-	<div>
-		<h1 class="title">All Products</h1>
-		<p>{{ length }} products</p>
+	<div class="box">
+		<h1 class="title">Lista de produtos</h1>
+		<p>Selecione a quantidade desejada</p>
 		<table class="table is-striped">
 			<thead>
 				<tr>
 					<th>Nome</th>
 					<th>Descrição</th>
-					<th>Prreço</th>
+					<th>Preço</th>
+					<th></th>
+					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="product in products" track-by="id">
+				<tr v-for="product in products" track-by="id" class="tr-middle">
 					<td>{{ product.name }}</td>
 					<td>{{ product.description }}</td>
-					<td>${{ product.price }}</td>
-					<td><button @click='addToCart(product)' class='button is-info'>Add to cart</button></td>
+					<td>R${{ product.price }}</td>
+					<td>
+						<button @click='addToCart(product)' class='button is-info'>
+							<span class="icon">
+								<i class="fa fa-plus"></i>
+							</span>
+						</button>
+					</td>
+					<td>{{ product.itemQuantity }}</td>
+					<td>
+						<button @click='removeFromCart(product)' class='button is-info'>
+							<span class="icon">
+								<i class="fa fa-minus"></i>
+							</span>
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+
 </template>
 
 <script>
@@ -30,10 +47,11 @@ export default {
 	name: 'app',
 	computed: mapGetters({
 		products: 'allProducts',
-		length: 'getNumberOfProducts'
+		length: 'getNumberOfProducts',
 	}),
 	methods: mapActions([
-		'addToCart'
+		'addToCart',
+		'removeFromCart'
 	])
 }
 </script>
