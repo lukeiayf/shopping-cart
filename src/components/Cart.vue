@@ -27,8 +27,9 @@
 			</tbody>
 
 		</table>
-		<p>Observações</p>
-		<div class="control mb-4">
+
+		<div v-show="products.length" class="control mb-4">
+			<p>Observações</p>
 			<textarea class="textarea" placeholder="Alguma dúvida ou sugestão?"></textarea>
 		</div>
 		<p><button v-show="products.length" class='button is-primary' @click='checkout'>Checkout</button></p>
