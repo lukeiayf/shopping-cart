@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as types from './mutation-types'
-
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -13,6 +12,7 @@ const state = {
 		{
 			id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
 			name: 'React.js',
+			icon: 'fa-brands fa-react',
 			description: 'React is a JavaScript library for building user interfaces.',
 			price: 399,
 			itemQuantity: 0
@@ -20,6 +20,7 @@ const state = {
 		{
 			id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
 			name: 'Vue.js',
+			icon: 'vue',
 			description: 'Vue is a progressive framework for building user interfaces.',
 			price: 1995,
 			itemQuantity: 0
@@ -27,6 +28,7 @@ const state = {
 		{
 			id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
 			name: 'Angular.js',
+			icon: 'angular',
 			description: 'Angular is a JavaScript framework for building single-page applications.',
 			price: 595,
 			itemQuantity: 0
@@ -90,20 +92,22 @@ const mutations = {
 		const itemSelectedRemove = state.all.find(p => p.id === id)
 
 		//remove from array if quantity is 0
-		if (recordRemove.totalQuantity == 0) {
+		if (recordRemove.totalQuantity <= 1 || itemSelectedRemove.itemQuantity <= 1) {
 			state.added = state.added.filter(p => p.id !== id)
+			itemSelectedRemove.itemQuantity--
+			recordRemove.totalQuantity--
 		} else {
 			recordRemove.totalQuantity--
 			itemSelectedRemove.itemQuantity--
 		}
 
-		if (recordRemove.totalQuantity < 0) {
+		if (recordRemove.length == 0) {
 			recordRemove.totalQuantity = 0
+			alert('Não é possivel remover mais produtos')
 		}
 
-		if (itemSelectedRemove.itemQuantity < 0) {
+		if (itemSelectedRemove.length == 0) {
 			itemSelectedRemove.itemQuantity = 0
-			alert('Não é possivel remover mais produtos')
 		}
 	}
 }

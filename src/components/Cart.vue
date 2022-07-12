@@ -8,9 +8,9 @@
 		<table class="table is-striped" v-show="products.length">
 			<thead>
 				<tr>
-					<td>Nome</td>
-					<td>Preço</td>
-					<td>Quantidade</td>
+					<td><b>Nome</b></td>
+					<td><b>Preço</b></td>
+					<td><b>Quantidade</b></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,6 +27,10 @@
 			</tbody>
 
 		</table>
+		<p>Observações</p>
+		<div class="control mb-4">
+			<textarea class="textarea" placeholder="Alguma dúvida ou sugestão?"></textarea>
+		</div>
 		<p><button v-show="products.length" class='button is-primary' @click='checkout'>Checkout</button></p>
 	</div>
 </template>

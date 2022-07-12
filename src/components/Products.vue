@@ -1,8 +1,8 @@
 <template>
 	<div class="box">
-		<h1 class="title">Lista de produtos</h1>
-		<p>Selecione a quantidade desejada</p>
-		<table class="table is-striped">
+		<h1 class="title">Formulário para a compra de adesivos</h1>
+		<p class="nav-right">Selecione a quantidade desejada</p>
+		<table class="table is-striped is-fullwidth">
 			<thead>
 				<tr>
 					<th>Nome</th>
@@ -37,11 +37,11 @@
 			</tbody>
 		</table>
 	</div>
-
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 
 export default {
 	name: 'app',
