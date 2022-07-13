@@ -1,7 +1,7 @@
 <template>
 	<div class="box">
 		<h1 class="title">Formulário para a compra de adesivos</h1>
-		<p class="nav-right">Selecione a quantidade desejada</p>
+		<p class="nav-right" v-if="length < 1">Selecione a quantidade desejada</p>
 		<table class="table is-striped is-fullwidth">
 			<thead>
 				<tr>

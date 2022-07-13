@@ -10,6 +10,9 @@ tr > td {
 .nav {
 	height: auto;
 	margin-bottom: 2rem;
+	margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
 }
 
 .nav-item img {
@@ -28,4 +31,15 @@ tr > td {
 .nav-left {
 	display: flex;
 	justify-content: flex-start;
+}
+
+.purchase__methods{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.purchase__methods column.active {
+    border: 2px solid #01a3a4;
 }

@@ -1,11 +1,12 @@
 <template>
-	<nav class="nav has-shadow" style='box-shadow: 0 1px 0 rgba(219,219,219,.3);'>
-		<div class="nav-left">
+
+	<nav class="nav has-shadow columns" style='box-shadow: 0 1px 0 rgba(219,219,219,.3);'>
+		<div class="nav-left column">
 			<router-link to="/" class="nav-item">
 				<img src="../assets/logo.png" alt="Bulma logo">
 			</router-link>
 		</div>
-		<div class="nav-right nav-menu">
+		<div class="nav-right nav-menu column">
 			<div class="nav-item is-tab">
 				<div class="field is-grouped">
 					<p class="control">
