@@ -1,0 +1,48 @@
+html {
+  background-color: #fff !important;
+}
+
+tr > td {
+	vertical-align: middle !important;
+	text-align: center !important;
+}
+
+.nav {
+	height: auto;
+	margin-bottom: 2rem;
+	margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+
+.nav-item img {
+	max-height: 3.5rem;
+}
+
+.active-button {
+	background-color: #2E3575 !important;
+}
+
+.nav-right {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.nav-left {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.purchase__methods{
+	display: flex;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.purchase__methods p {
+	margin-left: 1rem;
+}
+
+.purchase__methods column.active {
+    border: 2px solid #01a3a4;
+}
