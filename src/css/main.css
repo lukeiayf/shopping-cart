@@ -3,7 +3,7 @@ html {
 }
 
 tr > td {
-	vertical-align: middle !important
+	vertical-align: middle !important;
 	text-align: center !important;
 }
 
