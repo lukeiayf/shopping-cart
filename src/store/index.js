@@ -94,7 +94,8 @@ const actions = {
 	},
 	setPaymentMethod({ commit }, paymentMethod) {
 		commit(types.SET_PAYMENT_METHOD, {
-			id:paymentMethod.id
+			id:paymentMethod.id,
+			type:paymentMethod.type
 		})
 	}
 
@@ -143,12 +144,21 @@ const mutations = {
 		}
 	},
 
-	[types.SET_PAYMENT_METHOD](state, { id }) {
-		const paymentRecord = state.paymentMethod.find(p => p.id === id)
-		if (!paymentRecord) {
+	[types.SET_PAYMENT_METHOD](state, { id, type }) {
+
+		//add into paymentMethod array if it is empty
+		//if it is not empty, remove it and add the new one
+		if (state.paymentMethod.length == 0) {
 			state.paymentMethod.push({
 				id,
-				type: 'Cartão de crédito'
+				type
+			})
+		}
+		else {
+			state.paymentMethod = []
+			state.paymentMethod.push({
+				id,
+				type
 			})
 		}
 	},

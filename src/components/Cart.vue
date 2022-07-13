@@ -58,7 +58,7 @@ export default {
 	},
 	methods: {
 		checkout() {
-			alert("O total é de R$" + this.total +"." + " O pagamento será realizado pelo " + this.paymentMethod.type);
+			alert("O total é de R$" + this.total +"." + " O pagamento será realizado pelo " + this.paymentMethod[0].type);
 		}
 	},
 	components: { Payment }

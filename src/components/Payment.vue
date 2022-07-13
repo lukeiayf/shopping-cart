@@ -3,27 +3,14 @@
         <div class="card-content">
             <div class="columns is-desktop is-vcentered">
                 <div class="column is-fullwidth">
-                    <h3 class="title has-text-centered is-size-4 copy-monthly is-hidden">
-                    </h3>
                     <h3 class="title has-text-centered is-size-4 copy-lifetime">Confira os dados de pagamento
                     </h3>
-
-                    <div class="field">
-                        <label class="label" for="account-email">E-mail</label>
-                        <div class="control">
-                            <input class="input" type="email" name="email" id="account-email" placeholder="E-mail"
-                                value="" autocomplete="new-account">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Selecione uma forma de pagamento:</label>
-                        <label class="purchase__methods checkbox" v-for="paymentMethod in paymentMethods"
+                    <div class="control">
+                        <label class="label">Selecione apenas uma</label>
+                        <label class="purchase__methods radio" v-for="paymentMethod in paymentMethods"
                             :key="paymentMethod.id" track-by="id">
-                            <input type="checkbox">
-                                <a href="#" @click="addPaymentMethod">
-                                    <p>{{paymentMethod.type}}</p>
-                                </a>
+                            <input type="radio" name="payment" @click="setPaymentMethod(paymentMethod)">
+                            <p>{{paymentMethod.type}}</p>
                         </label>
                     </div>
                 </div>
@@ -33,18 +20,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters,mapActions } from 'vuex';
 
 export default {
     name: 'Payment',
     computed: mapGetters({
         paymentMethods: 'allPaymentMethods',
     }),
-    methods: {
-        addPaymentMethod() {
-            this.$store.commit('setPaymentMethod');
-        }
-    }
+    methods: mapActions([
+		'setPaymentMethod'
+	])
 }
 
 </script>
