@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="product in products" track-by="id" class="tr-middle">
+				<tr v-for="product in products" :key="product.id" track-by="id" class="tr-middle">
 					<td>{{ product.name }}</td>
 					<td>{{ product.description }}</td>
 					<td>R${{ product.price }}</td>

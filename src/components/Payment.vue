@@ -17,24 +17,14 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Selecione uma forma de pagamento</label>
-                        <div class="purchase__methods columns">
-                            <div class="column active">
-                                <a href="#" class="is-fullwidth">
-                                    <img src="../assets/visa-mastercard.png" height="24" alt="Pague com cartão">
+                        <label class="label">Selecione uma forma de pagamento:</label>
+                        <label class="purchase__methods checkbox" v-for="paymentMethod in paymentMethods"
+                            :key="paymentMethod.id" track-by="id">
+                            <input type="checkbox">
+                                <a href="#" @click="addPaymentMethod">
+                                    <p>{{paymentMethod.type}}</p>
                                 </a>
-                            </div>
-                            <div class="column">
-                                <a href="#" class=" is-fullwidth">
-                                    <img src="../assets/pix-bc-logo-4.png" height="24" alt="Pague com PIX">
-                                </a>
-                            </div>
-                            <div class="column">
-                                <a href="#" class=" is-fullwidth">
-                                    <img src="../assets/boleto-logo-3.png" height="24" alt="Pague com boleto">
-                                </a>
-                            </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -43,23 +33,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Payment',
-    computed: {
-        priceFinal() {
-            return this.$store.state.priceFinal;
-        },
-        priceTeamFinal() {
-            return this.$store.state.priceTeamFinal;
-        }
-    },
+    computed: mapGetters({
+        paymentMethods: 'allPaymentMethods',
+    }),
     methods: {
-        buyLicense() {
-            this.$store.dispatch('buyLicense');
-        },
-        buySubscription() {
-            this.$store.dispatch('buySubscription');
+        addPaymentMethod() {
+            this.$store.commit('setPaymentMethod');
         }
     }
 }

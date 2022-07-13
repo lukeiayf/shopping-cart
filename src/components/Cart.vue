@@ -15,7 +15,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="p in products">
+					<tr v-for="p in products" :key="p.id">
 						<td>{{ p.name }}</td>
 						<td>${{ p.price }}</td>
 						<td>{{ p.totalQuantity }}</td>
@@ -47,7 +47,8 @@ import Payment from './Payment.vue'
 export default {
 	computed: {
 		...mapGetters({
-			products: "cartProducts"
+			products: "cartProducts",
+			paymentMethod: "paymentMethod",
 		}),
 		total() {
 			return this.products.reduce((total, p) => {
@@ -57,7 +58,7 @@ export default {
 	},
 	methods: {
 		checkout() {
-			alert("O total é de R$" + this.total);
+			alert("O total é de R$" + this.total +"." + " O pagamento será realizado pelo " + this.paymentMethod.type);
 		}
 	},
 	components: { Payment }

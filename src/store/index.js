@@ -33,7 +33,25 @@ const state = {
 			price: 595,
 			itemQuantity: 0
 		}
-	]
+	],
+	paymentMethods: [
+		{
+			id:'1',
+			type: 'Cartão de crédito',
+			logo: '../assets/visa-mastercard.png'
+		},
+		{
+			id:'2',
+			type: 'PIX',
+			logo: 'fa-pix'
+		},
+		{
+			id: '3',
+			type: 'Boleto',
+			logo: 'fa-barcode'
+		}
+	],
+	paymentMethod: []
 }
 
 // getters
@@ -51,7 +69,15 @@ const getters = {
 				totalQuantity
 			}
 		})
+	},
+	allPaymentMethods: state => state.paymentMethods,
+	paymentMethod: state => state.paymentMethod.map(({ id, type }) => {
+		return {
+			id,
+			type,
+		}
 	}
+	),
 }
 
 // actions
@@ -65,7 +91,13 @@ const actions = {
 		commit(types.REMOVE_FROM_CART, {
 			id: product.id
 		})
+	},
+	setPaymentMethod({ commit }, paymentMethod) {
+		commit(types.SET_PAYMENT_METHOD, {
+			id:paymentMethod.id
+		})
 	}
+
 }
 
 // mutations
@@ -109,7 +141,17 @@ const mutations = {
 		if (itemSelectedRemove.length == 0) {
 			itemSelectedRemove.itemQuantity = 0
 		}
-	}
+	},
+
+	[types.SET_PAYMENT_METHOD](state, { id }) {
+		const paymentRecord = state.paymentMethod.find(p => p.id === id)
+		if (!paymentRecord) {
+			state.paymentMethod.push({
+				id,
+				type: 'Cartão de crédito'
+			})
+		}
+	},
 }
 
 // one store for entire application

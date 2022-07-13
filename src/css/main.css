@@ -35,9 +35,12 @@ tr > td {
 
 .purchase__methods{
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	margin-top: 2rem;
+}
+
+.purchase__methods p {
+	margin-left: 1rem;
 }
 
 .purchase__methods column.active {
